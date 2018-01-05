@@ -25,3 +25,26 @@ void loop()
     i--;
   }
 }
+
+void indicators(uint8_t count, uint8_t r, uint8_t g, uint8_t b)
+{
+  if(lastNum <= count)
+  {
+    for(int16_t x = lastNum; x <= count; x++)
+    {
+      led.setColorAt(x, r, g, b);
+      led.show();
+      delay(10);
+    }
+  }
+  else
+  {
+    for(int16_t x = lastNum; x > count; x--)
+    {
+      led.setColorAt(x, 0, 0, 0);
+      led.show();
+      delay(10);
+    }
+  }
+  lastNum = count;
+}
