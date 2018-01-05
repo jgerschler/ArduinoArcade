@@ -1,11 +1,13 @@
 #include "MeOrion.h"
 
 Me7SegmentDisplay disp(PORT_6);
+MeRGBLed led(PORT_3);
 
 unsigned long previousMillis = 0;
 unsigned long lastTime = 0;
 unsigned long currentMillis;
 int interval = 1000;
+int lastNum = 0;
 int i = 30;
 
 void setup()
@@ -20,6 +22,7 @@ void loop()
   }
   currentMillis = millis();
   disp.display(i);
+  indicators(i/2, 20, 30, 40);
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
     i--;
