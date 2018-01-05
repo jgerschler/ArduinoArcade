@@ -21,6 +21,9 @@ void loop()
 {
   if(i < 0)
   {
+    buzzerOn();
+    delay(1000);
+    buzzerOff();
     i = 30;
   }
   currentMillis = millis();
@@ -52,6 +55,7 @@ void indicators(uint8_t count)
     g = 0;
     b = 0;
   }
+  
   if(lastNum <= count)
   {
     for(int16_t x = lastNum; x <= count; x++)
