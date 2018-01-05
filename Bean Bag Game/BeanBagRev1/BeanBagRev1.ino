@@ -9,6 +9,9 @@ unsigned long currentMillis;
 int interval = 1000;
 int lastNum = 0;
 int i = 30;
+uint8_t r;
+uint8_t g; 
+uint8_t b;
 
 void setup()
 {
@@ -22,15 +25,33 @@ void loop()
   }
   currentMillis = millis();
   disp.display(i);
-  indicators(i/2, 20, 30, 40);
+  indicators(i/2);
   if (currentMillis - previousMillis >= interval) {
     previousMillis = currentMillis;
     i--;
   }
 }
 
-void indicators(uint8_t count, uint8_t r, uint8_t g, uint8_t b)
+void indicators(uint8_t count)
 {
+  if (count >= 8)
+  {
+    r = 0;
+    g = 100;
+    b = 0;
+  }
+  else if (count > 5 && count < 8)
+  {
+    r = 100;
+    g = 100;
+    b = 0;
+  }
+  else
+  {
+    r = 100;
+    g = 0;
+    b = 0;
+  }
   if(lastNum <= count)
   {
     for(int16_t x = lastNum; x <= count; x++)
