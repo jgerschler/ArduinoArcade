@@ -3,12 +3,15 @@
 Me7SegmentDisplay disp(PORT_6);
 MeRGBLed led(PORT_3);// can't combine with switch!
 MeLimitSwitch switch1(PORT_4,SLOT1);
+MeLightSensor lightSensor(PORT_8);
 
 
 unsigned long previousMillis = 0;
 unsigned long currentMillis;
 int interval = 1000;
 int i;
+int score;
+int lightValue;
 uint8_t r;
 uint8_t g; 
 uint8_t b;
@@ -16,6 +19,7 @@ uint8_t b;
 void setup()
 {
   i = 30;
+  score = 0;
   disp.display(i);
   for(int16_t x = 0; x < 15; x++)
   {
@@ -33,8 +37,9 @@ void loop()
     while (i >= 0)
     {
       currentMillis = millis();
-      disp.display(i);
+      disp.display(score);
       indicators(i/2);
+      
       if (currentMillis - previousMillis >= interval) 
       {
         previousMillis = currentMillis;
