@@ -39,7 +39,11 @@ void loop()
       currentMillis = millis();
       disp.display(score);
       indicators(i/2);
-      
+      lightValue = lightSensor.read();
+      if (lightValue > 50)
+      {
+        score++;
+      }
       if (currentMillis - previousMillis >= interval) 
       {
         previousMillis = currentMillis;
