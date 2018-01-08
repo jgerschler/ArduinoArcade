@@ -5,10 +5,12 @@ MeRGBLed led(PORT_3);// can't combine with switch!
 MeLimitSwitch switch1(PORT_4,SLOT1);
 MeLightSensor lightSensor(PORT_8);
 
-
 unsigned long previousMillis = 0;
+unsigned long previousBeepMillis = 0;
 unsigned long currentMillis;
+unsigned long currentBeepMillis;
 int interval = 1000;
+int beepInterval = 500;
 int i;
 int score;
 int lightValue;
@@ -34,15 +36,23 @@ void loop()
   if (switch1.touched())
   {
     previousMillis = millis();
+    previousBeepMillis = millis();
     while (i >= 0)
     {
       currentMillis = millis();
+      currentBeepMillis = millis();
       disp.display(score);
       indicators(i/2);
       lightValue = lightSensor.read();
       if (lightValue > 50)
       {
         score++;
+        buzzerOn();
+      }
+      if (currentBeepMillis - previousBeepMillis >= beepInterval) 
+      {
+        buzzerOff();
+        previousBeepMillis = currentBeepMillis;
       }
       if (currentMillis - previousMillis >= interval) 
       {
