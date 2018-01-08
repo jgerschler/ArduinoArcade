@@ -20,7 +20,7 @@ void setup()
 {
   i = 30;
   score = 0;
-  disp.display(i);
+  disp.display(score);
   for(int16_t x = 0; x < 15; x++)
   {
     led.setColorAt(x, 0, 100, 0);
@@ -76,8 +76,9 @@ void loop()
 void reset()
 {
   i = 30;
+  score = 0;
   previousMillis = 0;
-  disp.display(i);
+  disp.display(score);
   for(int16_t x = 0; x < 15; x++)
   {
     led.setColorAt(x, 0, 100, 0);
