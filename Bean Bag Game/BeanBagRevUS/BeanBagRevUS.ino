@@ -1,11 +1,13 @@
 #include "MeOrion.h"
 
+MeRGBLed led(PORT_3);
 Me7SegmentDisplay disp(PORT_6);
-MeRGBLed led(PORT_3, SLOT1);
+MeUltrasonicSensor ultraSensor(PORT_7);
 
 unsigned long previousMillis = 0;
 unsigned long currentMillis;
 int interval = 1000;
+int intervalUltrasound = 100;// 100 is minimum value
 int i = 30;
 uint8_t r;
 uint8_t g; 
@@ -13,6 +15,7 @@ uint8_t b;
 
 void setup()
 {
+  Serial.begin(9600);
 }
 
 void loop()
@@ -27,7 +30,15 @@ void loop()
   currentMillis = millis();
   disp.display(i);
   indicators(i/2);
-  if (currentMillis - previousMillis >= interval) {
+  if (currentMillis - previousMillis >= intervalUltrasound) 
+  {
+    previousMillis = currentMillis;
+    Serial.print("Distance : ");
+    Serial.print(ultraSensor.distanceCm());
+    Serial.println(" cm");
+  }
+  if (currentMillis - previousMillis >= interval) 
+  {
     previousMillis = currentMillis;
     i--;
   }
