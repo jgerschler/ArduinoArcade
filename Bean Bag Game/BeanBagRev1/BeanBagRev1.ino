@@ -61,7 +61,7 @@ void loop()
       }
     }
     buzzerOn();
-    for(int16_t x = 0; x < 3; x++)
+    for(int16_t x = 0; x < 10; x++)
     {
       for(int16_t x = 0; x < 15; x++)
       {
