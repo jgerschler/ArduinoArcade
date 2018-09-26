@@ -3,7 +3,6 @@
 Me7SegmentDisplay disp(PORT_6);
 MeRGBLed led(PORT_3);// can't combine with switch!
 MeLimitSwitch switch1(PORT_4,SLOT1);
-MeLightSensor lightSensor(PORT_8);
 
 unsigned long previousMillis = 0;
 unsigned long previousBeepMillis = 0;
@@ -13,7 +12,6 @@ int interval = 1000;
 int beepInterval = 500;
 int i;
 int score;
-int lightValue;
 uint8_t r;
 uint8_t g; 
 uint8_t b;
@@ -21,8 +19,7 @@ uint8_t b;
 void setup()
 {
   i = 30;
-  score = 0;
-  disp.display(score);
+  disp.display(i);
   for(int16_t x = 0; x < 15; x++)
   {
     led.setColorAt(x, 0, 100, 0);
@@ -41,14 +38,8 @@ void loop()
     {
       currentMillis = millis();
       currentBeepMillis = millis();
-      disp.display(score);
+      disp.display(i);
       indicators(i/2);
-      lightValue = lightSensor.read();
-      if (lightValue > 50)
-      {
-        score++;
-        buzzerOn();
-      }
       if (currentBeepMillis - previousBeepMillis >= beepInterval) 
       {
         buzzerOff();
@@ -88,7 +79,7 @@ void reset()
   i = 30;
   score = 0;
   previousMillis = 0;
-  disp.display(score);
+  disp.display(i);
   for(int16_t x = 0; x < 15; x++)
   {
     led.setColorAt(x, 0, 100, 0);
