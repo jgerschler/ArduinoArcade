@@ -2,6 +2,7 @@
 
 import pygame
 import random
+import sys
 
 class RandomPronounGenerator(object):
     DISPLAY_WIDTH = 1024
@@ -61,9 +62,11 @@ class RandomPronounGenerator(object):
                         self.game_display.fill(RandomPronounGenerator.WHITE)
                         self.message_display(random.choice(self.pronoun_list))
                         pygame.display.update()
+                    if event.key == pygame.K_ESCAPE:
+                        self.finished = True
                         
         pygame.quit()
-        quit()        
+        sys.exit()
 
 
 new_pronoun = RandomPronounGenerator()
